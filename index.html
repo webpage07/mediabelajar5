@@ -1,198 +1,2674 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Laporan Nilai Geografi</title>
-<style>
-  body {
-    font-family: 'Poppins', sans-serif;
-    background: radial-gradient(circle at top left, #0f2027, #203a43, #2c5364);
-    color: #e0e0e0;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    height: 100vh;
-    margin: 0;
-    padding-top: 60px;
-    overflow-x: hidden;
-  }
-
-  .container {
-    background: rgba(20, 20, 30, 0.85);
-    border: 1px solid rgba(0, 255, 255, 0.2);
-    box-shadow: 0 0 25px rgba(0, 255, 255, 0.15);
-    border-radius: 20px;
-    padding: 25px 35px;
-    width: 95%;
-    max-width: 1200px;
-    backdrop-filter: blur(12px);
-  }
-
-  h1 {
-    text-align: center;
-    color: #00ffff;
-    font-size: 1.8em;
-    margin-bottom: 20px;
-    text-shadow: 0 0 10px #00ffff;
-  }
-
-  #loginForm {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-
-  input {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.1);
-    color: #fff;
-    outline: none;
-    font-size: 1em;
-    width: 250px;
-    text-align: center;
-  }
-
-  input::placeholder {
-    color: rgba(255,255,255,0.5);
-  }
-
-  button {
-    padding: 10px 20px;
-    margin-left: 10px;
-    border: none;
-    border-radius: 10px;
-    background: linear-gradient(45deg, #00ffff, #0077ff);
-    color: #000;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-
-  button:hover {
-    background: linear-gradient(45deg, #00aaff, #00ffff);
-    transform: scale(1.05);
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 0 10px rgba(0,255,255,0.1);
-  }
-
-  th, td {
-    padding: 10px 12px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
-
-  th {
-    background: rgba(0,255,255,0.1);
-    color: #00ffff;
-    text-shadow: 0 0 5px #00ffff;
-    font-weight: 600;
-    text-align: center;
-  }
-
-  td:first-child {
-    text-align: left;
-    color: #b0ffff;
-  }
-
-  td:last-child {
-    text-align: center;
-    color: #ffffff;
-    font-weight: 500;
-  }
-
-  tr:hover {
-    background: rgba(0,255,255,0.08);
-    transition: 0.3s;
-  }
-
-  .hidden {
-    display: none;
-  }
-
-  footer {
-    text-align: center;
-    color: rgba(255,255,255,0.6);
-    margin-top: 15px;
-    font-size: 0.85em;
-  }
-</style>
-</head>
-<body>
-
-<div class="container">
-  <h1>Laporan Nilai Geografi</h1>
-  
-  <div id="loginForm">
-    <input type="text" id="nisn" placeholder="Masukkan NISN Anda">
-    <button onclick="tampilkanNilai()">Lihat Nilai</button>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media Pembelajaran Interaktif Ekonomi Kelas 12 SMA</title>
+  <script src="/_sdk/data_sdk.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 50%, #45b7d1 100%);
+      min-height: 100%;
+      height: 100%;
+      animation: gradientShift 10s ease infinite;
+    }
+    
+    @keyframes gradientShift {
+      0% { background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 50%, #45b7d1 100%); }
+      25% { background: linear-gradient(135deg, #ffa726 0%, #66bb6a 50%, #42a5f5 100%); }
+      50% { background: linear-gradient(135deg, #ab47bc 0%, #26c6da 50%, #7e57c2 100%); }
+      75% { background: linear-gradient(135deg, #ef5350 0%, #ffca28 50%, #26a69a 100%); }
+      100% { background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 50%, #45b7d1 100%); }
+    }
+    
+    html {
+      height: 100%;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .header {
+      background: linear-gradient(45deg, #fff9e6 0%, #ffffff 100%);
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(255,107,107,0.3);
+      margin-bottom: 30px;
+      text-align: center;
+      border: 3px solid transparent;
+      background-clip: padding-box;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #ffa726, #66bb6a);
+      z-index: -1;
+      margin: -3px;
+      border-radius: 20px;
+      animation: borderRotate 3s linear infinite;
+    }
+    
+    @keyframes borderRotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .header h1 {
+      margin: 0 0 10px 0;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #ffa726);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 32px;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .header p {
+      margin: 0;
+      color: #2c3e50;
+      font-size: 16px;
+      font-weight: 500;
+    }
+    
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin-bottom: 30px;
+      padding: 20px 0;
+    }
+    
+    .menu-card {
+      background: linear-gradient(135deg, #fff9e6 0%, #ffffff 100%);
+      padding: 35px 25px;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(255,107,107,0.2);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      text-align: center;
+      border: 3px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .menu-card:nth-child(1) {
+      background: linear-gradient(135deg, #ff6b6b20, #ffffff);
+      border-color: #ff6b6b;
+    }
+    
+    .menu-card:nth-child(2) {
+      background: linear-gradient(135deg, #4ecdc420, #ffffff);
+      border-color: #4ecdc4;
+    }
+    
+    .menu-card:nth-child(3) {
+      background: linear-gradient(135deg, #ffa72620, #ffffff);
+      border-color: #ffa726;
+    }
+    
+    .menu-card:nth-child(4) {
+      background: linear-gradient(135deg, #66bb6a20, #ffffff);
+      border-color: #66bb6a;
+    }
+    
+    .menu-card:nth-child(5) {
+      background: linear-gradient(135deg, #ef535020, #ffffff);
+      border-color: #ef5350;
+    }
+    
+    .menu-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .menu-card:hover::before {
+      left: 100%;
+    }
+    
+    .menu-card:hover {
+      transform: translateY(-12px) scale(1.05) rotate(2deg);
+      box-shadow: 0 20px 50px rgba(255,107,107,0.4);
+    }
+    
+    .menu-card:nth-child(1):hover {
+      box-shadow: 0 20px 50px rgba(255,107,107,0.4);
+    }
+    
+    .menu-card:nth-child(2):hover {
+      box-shadow: 0 20px 50px rgba(78,205,196,0.4);
+    }
+    
+    .menu-card:nth-child(3):hover {
+      box-shadow: 0 20px 50px rgba(255,167,38,0.4);
+    }
+    
+    .menu-card:nth-child(4):hover {
+      box-shadow: 0 20px 50px rgba(102,187,106,0.4);
+    }
+    
+    .menu-card:nth-child(5):hover {
+      box-shadow: 0 20px 50px rgba(239,83,80,0.4);
+    }
+    
+    .menu-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+      display: block;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+      animation: bounce 2s ease-in-out infinite;
+      transition: all 0.3s ease;
+    }
+    
+    .menu-card:hover .menu-icon {
+      transform: scale(1.2) rotate(10deg);
+      animation: wiggle 0.5s ease-in-out;
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+    
+    @keyframes wiggle {
+      0% { transform: rotate(0deg) scale(1.2); }
+      25% { transform: rotate(5deg) scale(1.2); }
+      50% { transform: rotate(-5deg) scale(1.2); }
+      75% { transform: rotate(5deg) scale(1.2); }
+      100% { transform: rotate(0deg) scale(1.2); }
+    }
+    
+    .menu-card h3 {
+      margin: 0 0 15px 0;
+      color: #333;
+      font-size: 22px;
+      font-weight: 700;
+    }
+    
+    .menu-card p {
+      margin: 0;
+      color: #666;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    
+    .menu-card:hover h3 {
+      color: #667eea;
+    }
+    
+    .menu-card.logout-card:hover h3 {
+      color: #dc3545;
+    }
+    
+    .content-section {
+      display: none;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      min-height: 400px;
+    }
+    
+    .content-section.active {
+      display: block;
+    }
+    
+    .login-form {
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 40px;
+      background: #f8f9fa;
+      border-radius: 15px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+      font-size: 14px;
+    }
+    
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    
+    .form-group input:focus, .form-group select:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+    
+    .btn-primary {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 4px 15px rgba(255,107,107,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+    
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #ff5252 0%, #ff9800 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(255,107,107,0.4);
+    }
+    
+    .btn-primary:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    
+    .topic-card {
+      padding: 25px;
+      color: white;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .topic-card:nth-child(1) {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+    }
+    
+    .topic-card:nth-child(2) {
+      background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+    }
+    
+    .topic-card:nth-child(3) {
+      background: linear-gradient(135deg, #ffa726 0%, #fb8c00 100%);
+    }
+    
+    .topic-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(255,255,255,0.1), transparent, rgba(255,255,255,0.1));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .topic-card:hover::before {
+      opacity: 1;
+    }
+    
+    .topic-card:hover {
+      transform: translateY(-10px) scale(1.03) rotate(1deg);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    }
+    
+    .topic-card:nth-child(1):hover {
+      box-shadow: 0 15px 40px rgba(255,107,107,0.4);
+    }
+    
+    .topic-card:nth-child(2):hover {
+      box-shadow: 0 15px 40px rgba(78,205,196,0.4);
+    }
+    
+    .topic-card:nth-child(3):hover {
+      box-shadow: 0 15px 40px rgba(255,167,38,0.4);
+    }
+    
+    .topic-card h3 {
+      margin: 0 0 10px 0;
+      font-size: 20px;
+    }
+    
+    .topic-card p {
+      margin: 0;
+      opacity: 0.9;
+      font-size: 14px;
+    }
+    
+    .quiz-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 10px;
+    }
+    
+    .question-card {
+      padding: 30px;
+      background: #f8f9fa;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+    
+    .question-text {
+      font-size: 20px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 25px;
+    }
+    
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .option {
+      padding: 15px 20px;
+      background: white;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 16px;
+    }
+    
+    .option:hover {
+      border-color: #667eea;
+      background: #f0f4ff;
+    }
+    
+    .option.selected {
+      border-color: #667eea;
+      background: #667eea;
+      color: white;
+    }
+    
+    .drag-drop-container {
+      display: flex;
+      gap: 30px;
+      margin-top: 20px;
+    }
+    
+    .drag-items, .drop-zones {
+      flex: 1;
+    }
+    
+    .drag-item {
+      padding: 15px;
+      background: white;
+      border: 2px solid #667eea;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      cursor: move;
+      font-size: 16px;
+    }
+    
+    .drag-item.dragging {
+      opacity: 0.5;
+    }
+    
+    .drop-zone {
+      padding: 20px;
+      background: #f8f9fa;
+      border: 2px dashed #ddd;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      min-height: 60px;
+      font-size: 16px;
+    }
+    
+    .drop-zone.drag-over {
+      border-color: #667eea;
+      background: #f0f4ff;
+    }
+    
+    .drop-zone.filled {
+      border-style: solid;
+      border-color: #667eea;
+      background: #e8f0ff;
+    }
+    
+    .crossword-grid {
+      display: grid;
+      gap: 2px;
+      margin: 20px 0;
+      justify-content: center;
+    }
+    
+    .crossword-cell {
+      width: 40px;
+      height: 40px;
+      border: 1px solid #ddd;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    
+    .crossword-cell.black {
+      background: #333;
+    }
+    
+    .crossword-cell input {
+      width: 100%;
+      height: 100%;
+      border: none;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 600;
+      text-transform: uppercase;
+      background: white;
+    }
+    
+    .crossword-clues {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    
+    .clue-section h4 {
+      margin-top: 0;
+      color: #667eea;
+      font-size: 18px;
+    }
+    
+    .clue-item {
+      margin-bottom: 10px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    
+    .matching-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 20px;
+    }
+    
+    .matching-item {
+      padding: 15px;
+      background: white;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 16px;
+    }
+    
+    .matching-item:hover {
+      border-color: #667eea;
+    }
+    
+    .matching-item.selected {
+      border-color: #667eea;
+      background: #667eea;
+      color: white;
+    }
+    
+    .matching-item.matched {
+      border-color: #28a745;
+      background: #d4edda;
+      color: #155724;
+      cursor: default;
+    }
+    
+    .quiz-navigation {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+    
+    .btn-secondary {
+      padding: 12px 30px;
+      background: #6c757d;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    
+    .btn-secondary:hover {
+      background: #5a6268;
+    }
+    
+    .btn-success {
+      padding: 12px 30px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    
+    .btn-success:hover {
+      background: #218838;
+    }
+    
+    .results-container {
+      text-align: center;
+      padding: 40px;
+    }
+    
+    .score-display {
+      font-size: 72px;
+      font-weight: 700;
+      color: #667eea;
+      margin: 20px 0;
+    }
+    
+    .results-message {
+      font-size: 24px;
+      color: #333;
+      margin-bottom: 30px;
+    }
+    
+    .leaderboard-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    
+    .leaderboard-table th {
+      background: #667eea;
+      color: white;
+      padding: 15px;
+      text-align: left;
+      font-size: 16px;
+    }
+    
+    .leaderboard-table td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #ddd;
+      font-size: 14px;
+    }
+    
+    .leaderboard-table tr:hover {
+      background: #f8f9fa;
+    }
+    
+    .rank-badge {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      border-radius: 50%;
+      background: #667eea;
+      color: white;
+      font-weight: 600;
+      text-align: center;
+    }
+    
+    .rank-badge.gold {
+      background: #ffd700;
+      color: #333;
+    }
+    
+    .rank-badge.silver {
+      background: #c0c0c0;
+      color: #333;
+    }
+    
+    .rank-badge.bronze {
+      background: #cd7f32;
+      color: white;
+    }
+    
+    .library-section {
+      margin-bottom: 30px;
+    }
+    
+    .library-section h3 {
+      color: #667eea;
+      margin-bottom: 15px;
+      font-size: 22px;
+    }
+    
+    .resource-list {
+      display: grid;
+      gap: 15px;
+    }
+    
+    .resource-item {
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      border-left: 4px solid #667eea;
+      transition: transform 0.3s ease;
+    }
+    
+    .resource-item:hover {
+      transform: translateX(5px);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    
+    .resource-item h4 {
+      margin: 0 0 8px 0;
+      color: #333;
+      font-size: 18px;
+    }
+    
+    .resource-item p {
+      margin: 0 0 10px 0;
+      color: #666;
+      font-size: 14px;
+    }
+    
+    .resource-link {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    
+    .resource-link:hover {
+      text-decoration: underline;
+    }
+    
+    .loading {
+      text-align: center;
+      padding: 20px;
+      color: #667eea;
+      font-size: 18px;
+    }
+    
+    .btn-download {
+      padding: 12px 30px;
+      background: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-top: 20px;
+    }
+    
+    .btn-download:hover {
+      background: #c82333;
+    }
+    
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 25px;
+      background: #28a745;
+      color: white;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      z-index: 1000;
+      animation: slideIn 0.3s ease;
+    }
+    
+    .video-section {
+      margin-bottom: 40px;
+    }
+    
+    .video-section h3 {
+      color: #667eea;
+      margin-bottom: 20px;
+      font-size: 24px;
+      border-bottom: 2px solid #667eea;
+      padding-bottom: 10px;
+    }
+    
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 25px;
+      margin-top: 20px;
+    }
+    
+    .video-card {
+      background: linear-gradient(135deg, #fff9e6 0%, #ffffff 100%);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(255,107,107,0.15);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 2px solid transparent;
+      position: relative;
+    }
+    
+    .video-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #ffa726, #66bb6a);
+      z-index: -1;
+      margin: -2px;
+      border-radius: 20px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .video-card:hover::before {
+      opacity: 1;
+    }
+    
+    .video-card:hover {
+      transform: translateY(-8px) scale(1.02) rotate(1deg);
+      box-shadow: 0 15px 35px rgba(255,107,107,0.3);
+    }
+    
+    .video-thumbnail {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      background: #ddd;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    
+    .video-thumbnail iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+    .video-info {
+      padding: 20px;
+    }
+    
+    .video-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+      margin: 0 0 10px 0;
+      line-height: 1.4;
+    }
+    
+    .video-description {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.6;
+      margin: 0 0 15px 0;
+    }
+    
+    .video-duration {
+      display: inline-block;
+      background: #667eea;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    
+    .video-channel {
+      color: #667eea;
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+    
+    .play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 28px;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 4px 20px rgba(255,107,107,0.4);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 4px 20px rgba(255,107,107,0.4); }
+      50% { box-shadow: 0 4px 30px rgba(255,107,107,0.6); }
+      100% { box-shadow: 0 4px 20px rgba(255,107,107,0.4); }
+    }
+    
+    .play-button:hover {
+      background: linear-gradient(135deg, #ff5252 0%, #ff9800 100%);
+      transform: translate(-50%, -50%) scale(1.2);
+      box-shadow: 0 8px 35px rgba(255,107,107,0.6);
+      animation: none;
+    }
+    
+    .video-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .video-modal.active {
+      display: flex;
+    }
+    
+    .video-modal-content {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      max-width: 90%;
+      max-height: 90%;
+      position: relative;
+    }
+    
+    .video-modal iframe {
+      width: 800px;
+      height: 450px;
+      max-width: 100%;
+      border: none;
+      border-radius: 10px;
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #666;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .close-modal:hover {
+      color: #333;
+    }
+    
+    @media (max-width: 768px) {
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .video-modal iframe {
+        width: 100%;
+        height: 250px;
+      }
+    }
+    
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    .limit-warning {
+      background: #fff3cd;
+      border: 2px solid #ffc107;
+      color: #856404;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="container">
+   <div class="header">
+    <h1 id="app-title">Media Pembelajaran Interaktif<br>
+     Ekonomi Kelas 12 SMA</h1>
+    <p id="welcome-message">Selamat datang di aplikasi pembelajaran interaktif Ekonomi</p>
+   </div>
+   <div class="menu-grid" id="nav-buttons" style="display: none;">
+    <div class="menu-card" onclick="showSection('library')">
+     <div class="menu-icon">
+      📚
+     </div>
+     <h3>Perpustakaan Digital</h3>
+     <p>Akses e-book, jurnal, dan sumber belajar terlengkap</p>
+    </div>
+    <div class="menu-card" onclick="showSection('videos')">
+     <div class="menu-icon">
+      🎬
+     </div>
+     <h3>Video Pembelajaran</h3>
+     <p>Koleksi video edukatif dari YouTube untuk setiap materi</p>
+    </div>
+    <div class="menu-card" onclick="showSection('quiz-select')">
+     <div class="menu-icon">
+      🎮
+     </div>
+     <h3>Asesmen Game</h3>
+     <p>Kuis interaktif dengan berbagai jenis soal menarik</p>
+    </div>
+    <div class="menu-card" onclick="showSection('leaderboard')">
+     <div class="menu-icon">
+      🏆
+     </div>
+     <h3>Ranking Siswa</h3>
+     <p>Lihat peringkat dan prestasi terbaik kelas</p>
+    </div>
+    <div class="menu-card logout-card" onclick="logout()">
+     <div class="menu-icon">
+      🚪
+     </div>
+     <h3>Keluar</h3>
+     <p>Logout dari aplikasi pembelajaran</p>
+    </div>
+   </div>
+   <div id="login-section" class="content-section active">
+    <div class="login-form">
+     <h2 style="text-align: center; color: #667eea; margin-top: 0;">Login Siswa</h2>
+     <form id="login-form" onsubmit="handleLogin(event)">
+      <div class="form-group"><label for="student-name">Nama Lengkap</label> <input type="text" id="student-name" required placeholder="Masukkan nama lengkap Anda">
+      </div>
+      <div class="form-group"><label for="class-name">Kelas</label> <select id="class-name" required> <option value="">Pilih Kelas</option> <option value="XII IPS 1">XII IPS 1</option> <option value="XII IPS 2">XII IPS 2</option> <option value="XII IPS 3">XII IPS 3</option> <option value="XII IPS 4">XII IPS 4</option> </select>
+      </div><button type="submit" class="btn-primary" id="login-btn">Masuk</button>
+     </form>
+    </div>
+   </div>
+   <div id="videos-section" class="content-section">
+    <h2 style="color: #667eea; margin-top: 0;">🎬 Video Pembelajaran</h2>
+    <div class="video-section">
+     <h3>🌍 Perdagangan Internasional</h3>
+     <div class="video-grid">
+      <div class="video-card">
+       <div class="video-thumbnail" onclick="openGoogleDriveVideo('1fesJMiMnuJeWDHnisv8gokKbhW-4zBIl')">
+        <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; font-weight: 600;">
+         📹 Video Pembelajaran
+        </div>
+        <div class="play-button">
+         ▶
+        </div>
+       </div>
+       <div class="video-info">
+        <h4 class="video-title">Konsep Dasar Perdagangan Internasional</h4>
+        <p class="video-description">Memahami pengertian, manfaat, dan faktor-faktor yang mempengaruhi perdagangan internasional</p><span class="video-duration">Video Materi</span>
+        <div class="video-channel">
+         Sumber: Google Drive
+        </div>
+       </div>
+      </div>
+      <div class="video-card">
+       <div class="video-thumbnail" onclick="openVideoModal('dQw4w9WgXcQ')"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+        <div class="play-button">
+         ▶
+        </div>
+       </div>
+       <div class="video-info">
+        <h4 class="video-title">Teori Keunggulan Komparatif</h4>
+        <p class="video-description">Penjelasan lengkap tentang teori David Ricardo dan penerapannya dalam perdagangan internasional</p><span class="video-duration">12:45</span>
+        <div class="video-channel">
+         Channel: Belajar Ekonomi
+        </div>
+       </div>
+      </div>
+      <div class="video-card">
+       <div class="video-thumbnail" onclick="openVideoModal('dQw4w9WgXcQ')"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+        <div class="play-button">
+         ▶
+        </div>
+       </div>
+       <div class="video-info">
+        <h4 class="video-title">Hambatan Perdagangan Internasional</h4>
+        <p class="video-description">Membahas berbagai jenis hambatan seperti tarif, kuota, dan embargo dalam perdagangan global</p><span class="video-duration">18:20</span>
+        <div class="video-channel">
+         Channel: Ekonomi Mudah
+        </div>
+       </div>
+      </div>
+      <div class="video-card">
+       <div class="video-thumbnail" onclick="openVideoModal('dQw4w9WgXcQ')"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+        <div class="play-button">
+         ▶
+        </div>
+       </div>
+       <div class="video-info">
+        <h4 class="video-title">Organisasi Perdagangan Dunia (WTO)</h4>
+        <p class="video-description">Peran dan fungsi WTO dalam mengatur perdagangan internasional dan penyelesaian sengketa</p><span class="video-duration">14:15</span>
+        <div class="video-channel">
+         Channel: Ekonomi Global
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="video-section">
+     <h3>💳 Sistem Pembayaran Internasional</h3>
+     <div class="video-grid">
+      <div class="video-card">
+       <div class="video-thumbnail" onclick="openGoogleDriveVideo('1CbQoEiRh5kdlIwlV-Z1ybS27dYZ2HPg4')">
+        <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; font-weight: 600;">
+         📹 Video Pembelajaran
+        </div>
+        <div class="play-button">
+         ▶
+        </div>
+       </div>
+       <div class="video-info">
+        <h4 class="video-title">Pengenalan Sistem Pembayaran Internasional</h4>
+        <p class="video-description">Memahami mekanisme pembayaran dalam perdagangan internasional dan alat pembayaran yang digunakan</p><span class="video-duration">Video Materi</span>
+        <div class="video-channel">
+         Sumber: Google Drive
+        </div>
+       </div>
+      </div>
+      <div class="video-card">
+       <div class="video-thumbnail" onclick="openVideoModal('dQw4w9WgXcQ')"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+        <div class="play-button">
+         ▶
+        </div>
+       </div>
+       <div class="video-info">
+        <h4 class="video-title">Valuta Asing dan Kurs</h4>
+        <p class="video-description">Penjelasan tentang mata uang asing, faktor yang mempengaruhi kurs, dan jenis-jenis kurs</p><span class="video-duration">13:25</span>
+        <div class="video-channel">
+         Channel: Bank Indonesia
+        </div>
+       </div>
+      </div>
+      <div class="video-card">
+       <div class="video-thumbnail" onclick="openVideoModal('dQw4w9WgXcQ')"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+        <div class="play-button">
+         ▶
+        </div>
+       </div>
+       <div class="video-info">
+        <h4 class="video-title">Letter of Credit (L/C)</h4>
+        <p class="video-description">Cara kerja Letter of Credit sebagai jaminan pembayaran dalam perdagangan internasional</p><span class="video-duration">11:50</span>
+        <div class="video-channel">
+         Channel: Perbankan Modern
+        </div>
+       </div>
+      </div>
+      <div class="video-card">
+       <div class="video-thumbnail" onclick="openVideoModal('dQw4w9WgXcQ')"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+        <div class="play-button">
+         ▶
+        </div>
+       </div>
+       <div class="video-info">
+        <h4 class="video-title">Sistem Pembayaran Digital</h4>
+        <p class="video-description">Perkembangan teknologi pembayaran digital dalam transaksi internasional modern</p><span class="video-duration">19:30</span>
+        <div class="video-channel">
+         Channel: Fintech Indonesia
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="video-section">
+     <h3>💰 APBD &amp; APBN</h3>
+     <div class="video-grid">
+      <div class="video-card">
+       <div class="video-thumbnail" onclick="openGoogleDriveVideo('19rlE3i871GMXgjZCPv_iQPORL62jXe_h')">
+        <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; font-weight: 600;">
+         📹 Video Pembelajaran
+        </div>
+        <div class="play-button">
+         ▶
+        </div>
+       </div>
+       <div class="video-info">
+        <h4 class="video-title">Pengenalan APBN dan APBD</h4>
+        <p class="video-description">Memahami pengertian, fungsi, dan perbedaan antara APBN dan APBD dalam sistem keuangan negara</p><span class="video-duration">Video Materi</span>
+        <div class="video-channel">
+         Sumber: Google Drive
+        </div>
+       </div>
+      </div>
+      <div class="video-card">
+       <div class="video-thumbnail" onclick="openVideoModal('dQw4w9WgXcQ')"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+        <div class="play-button">
+         ▶
+        </div>
+       </div>
+       <div class="video-info">
+        <h4 class="video-title">Sumber Pendapatan Negara</h4>
+        <p class="video-description">Mengenal berbagai sumber pendapatan negara mulai dari pajak, retribusi, hingga pendapatan non-pajak</p><span class="video-duration">14:30</span>
+        <div class="video-channel">
+         Channel: Dirjen Pajak
+        </div>
+       </div>
+      </div>
+      <div class="video-card">
+       <div class="video-thumbnail" onclick="openVideoModal('dQw4w9WgXcQ')"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+        <div class="play-button">
+         ▶
+        </div>
+       </div>
+       <div class="video-info">
+        <h4 class="video-title">Proses Penyusunan APBN</h4>
+        <p class="video-description">Tahapan lengkap penyusunan APBN mulai dari perencanaan hingga penetapan oleh DPR</p><span class="video-duration">20:45</span>
+        <div class="video-channel">
+         Channel: DPR RI
+        </div>
+       </div>
+      </div>
+      <div class="video-card">
+       <div class="video-thumbnail" onclick="openVideoModal('dQw4w9WgXcQ')"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+        <div class="play-button">
+         ▶
+        </div>
+       </div>
+       <div class="video-info">
+        <h4 class="video-title">Defisit dan Surplus Anggaran</h4>
+        <p class="video-description">Memahami konsep defisit dan surplus anggaran serta dampaknya terhadap perekonomian</p><span class="video-duration">12:20</span>
+        <div class="video-channel">
+         Channel: Ekonomi Makro
+        </div>
+       </div>
+      </div>
+      <div class="video-card">
+       <div class="video-thumbnail" onclick="openVideoModal('dQw4w9WgXcQ')"><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+        <div class="play-button">
+         ▶
+        </div>
+       </div>
+       <div class="video-info">
+        <h4 class="video-title">Dana Perimbangan Daerah</h4>
+        <p class="video-description">Penjelasan tentang DAU, DAK, dan DBH sebagai sumber pendapatan daerah dari pemerintah pusat</p><span class="video-duration">15:55</span>
+        <div class="video-channel">
+         Channel: Otonomi Daerah
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div id="library-section" class="content-section">
+    <h2 style="color: #667eea; margin-top: 0;">📚 Perpustakaan Digital</h2>
+    <div class="library-section">
+     <h3>Perdagangan Internasional</h3>
+     <div class="resource-list">
+      <div class="resource-item">
+       <h4>E-Book: Ekonomi Internasional</h4>
+       <p>Buku digital lengkap tentang perdagangan internasional, teori keunggulan komparatif, dan kebijakan perdagangan</p><a href="https://www.bi.go.id/id/publikasi/default.aspx" target="_blank" rel="noopener noreferrer" class="resource-link">Buka Sumber →</a>
+      </div>
+      <div class="resource-item">
+       <h4>Jurnal: Dampak Perdagangan Bebas</h4>
+       <p>Penelitian tentang dampak perdagangan bebas terhadap perekonomian Indonesia</p><a href="https://scholar.google.com" target="_blank" rel="noopener noreferrer" class="resource-link">Buka Sumber →</a>
+      </div>
+      <div class="resource-item">
+       <h4>Website: WTO Indonesia</h4>
+       <p>Informasi terkini tentang organisasi perdagangan dunia dan kebijakan Indonesia</p><a href="https://www.wto.org" target="_blank" rel="noopener noreferrer" class="resource-link">Buka Sumber →</a>
+      </div>
+     </div>
+    </div>
+    <div class="library-section">
+     <h3>Sistem Pembayaran Internasional</h3>
+     <div class="resource-list">
+      <div class="resource-item">
+       <h4>E-Book: Sistem Pembayaran Global</h4>
+       <p>Panduan lengkap tentang mekanisme pembayaran internasional, valuta asing, dan sistem kliring</p><a href="https://www.bi.go.id/id/fungsi-utama/sistem-pembayaran/default.aspx" target="_blank" rel="noopener noreferrer" class="resource-link">Buka Sumber →</a>
+      </div>
+      <div class="resource-item">
+       <h4>Website: Bank Indonesia - Sistem Pembayaran</h4>
+       <p>Informasi resmi tentang sistem pembayaran di Indonesia dan regulasi terkait</p><a href="https://www.bi.go.id" target="_blank" rel="noopener noreferrer" class="resource-link">Buka Sumber →</a>
+      </div>
+      <div class="resource-item">
+       <h4>Jurnal: Teknologi Pembayaran Digital</h4>
+       <p>Penelitian tentang perkembangan teknologi pembayaran digital dalam perdagangan internasional</p><a href="https://scholar.google.com" target="_blank" rel="noopener noreferrer" class="resource-link">Buka Sumber →</a>
+      </div>
+     </div>
+    </div>
+    <div class="library-section">
+     <h3>APBD &amp; APBN</h3>
+     <div class="resource-list">
+      <div class="resource-item">
+       <h4>E-Book: Keuangan Negara Indonesia</h4>
+       <p>Buku digital tentang struktur APBN, APBD, dan mekanisme pengelolaan keuangan negara</p><a href="https://www.kemenkeu.go.id/apbn" target="_blank" rel="noopener noreferrer" class="resource-link">Buka Sumber →</a>
+      </div>
+      <div class="resource-item">
+       <h4>Website: Kementerian Keuangan RI</h4>
+       <p>Portal resmi dengan data APBN terkini, laporan keuangan, dan kebijakan fiskal</p><a href="https://www.kemenkeu.go.id" target="_blank" rel="noopener noreferrer" class="resource-link">Buka Sumber →</a>
+      </div>
+      <div class="resource-item">
+       <h4>Jurnal: Analisis APBN Indonesia</h4>
+       <p>Penelitian tentang efektivitas penggunaan APBN dan dampaknya terhadap pembangunan</p><a href="https://scholar.google.com" target="_blank" rel="noopener noreferrer" class="resource-link">Buka Sumber →</a>
+      </div>
+      <div class="resource-item">
+       <h4>Website: Direktorat Jenderal Anggaran</h4>
+       <p>Informasi detail tentang perencanaan dan pelaksanaan anggaran negara</p><a href="https://www.anggaran.kemenkeu.go.id" target="_blank" rel="noopener noreferrer" class="resource-link">Buka Sumber →</a>
+      </div>
+     </div>
+    </div>
+   </div>
+   <div id="quiz-select-section" class="content-section">
+    <h2 style="color: #667eea; margin-top: 0;">🎮 Pilih Materi Asesmen</h2>
+    <div class="topic-grid">
+     <div class="topic-card" onclick="startQuiz('perdagangan')">
+      <h3>🌍 Perdagangan Internasional</h3>
+      <p>20 soal interaktif tentang perdagangan internasional</p>
+     </div>
+     <div class="topic-card" onclick="startQuiz('pembayaran')">
+      <h3>💳 Sistem Pembayaran Internasional</h3>
+      <p>20 soal interaktif tentang sistem pembayaran</p>
+     </div>
+     <div class="topic-card" onclick="startQuiz('apbd-apbn')">
+      <h3>💰 APBD &amp; APBN</h3>
+      <p>20 soal interaktif tentang anggaran negara</p>
+     </div>
+    </div>
+   </div>
+   <div id="quiz-section" class="content-section">
+    <div class="quiz-container">
+     <div class="quiz-header">
+      <div><strong>Soal <span id="current-question">1</span> dari <span id="total-questions">20</span></strong>
+      </div>
+      <div><strong>Materi: <span id="quiz-topic"></span></strong>
+      </div>
+     </div>
+     <div id="question-container"></div>
+     <div class="quiz-navigation"><button class="btn-secondary" onclick="previousQuestion()" id="prev-btn">← Sebelumnya</button> <button class="btn-secondary" onclick="nextQuestion()" id="next-btn">Selanjutnya →</button> <button class="btn-success" onclick="submitQuiz()" id="submit-btn" style="display: none;">Selesai</button>
+     </div>
+    </div>
+   </div>
+   <div id="results-section" class="content-section">
+    <div class="results-container">
+     <h2 style="color: #667eea; margin-top: 0;">🎉 Hasil Asesmen</h2>
+     <div class="score-display" id="final-score">
+      0
+     </div>
+     <div class="results-message" id="results-message"></div><button class="btn-primary" onclick="showSection('quiz-select')" style="max-width: 300px; margin: 0 auto;">Kembali ke Menu</button> <button class="btn-download" onclick="downloadPDF()">📥 Download Nilai (PDF)</button>
+    </div>
+   </div>
+   <div id="leaderboard-section" class="content-section">
+    <h2 style="color: #667eea; margin-top: 0;">🏆 Ranking Siswa</h2>
+    <div id="leaderboard-content"></div>
+   </div>
   </div>
-
-  <div id="hasil" class="hidden">
-    <h2 id="namaSiswa" style="text-align:center;color:#00ffff;"></h2>
-    <table id="tabelNilai">
-      <thead>
-        <tr>
-          <th>Komponen Penilaian</th>
-          <th>Nilai</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+  <div id="video-modal" class="video-modal">
+   <div class="video-modal-content"><button class="close-modal" onclick="closeVideoModal()">×</button> <iframe id="modal-video" src="" allowfullscreen></iframe>
+   </div>
   </div>
-  <footer>© 2025 Sistem Nilai Geografi — Designed by Ali Imron</footer>
-</div>
-
-<script>
-const dataSiswa = [
-  {NISN:"0097758369", NAMA:"AIRA PUTRI OKTAVIANI", KELAS:"X 1", T1:0, T2:80, T3:80, T4:60, C1:0, S1:1, T5:70, T6:75, T7:60, T8:0, C2:0},
-  {NISN:"0097931054", NAMA:"AIRISH BILAL NABAWI", KELAS:"X 1", T1:0, T2:95, T3:100, T4:0, C1:0, S1:1, T5:75, T6:0, T7:0, T8:0, C2:0},
-  {NISN:"0093693520", NAMA:"ALDHO JUNADIL ILHAM", KELAS:"X 1", T1:59, T2:75, T3:80, T4:0, C1:0, S1:0, T5:78, T6:75, T7:20, T8:0, C2:0},
-  {NISN:"0103307505", NAMA:"ALICIA PUTRI DEVINIRA", KELAS:"X 1", T1:70, T2:80, T3:80, T4:67, C1:0, S1:1, T5:80, T6:75, T7:100, T8:77, C2:0},
-  {NISN:"0102108205", NAMA:"ANNISA NUR SYIFA", KELAS:"X 1", T1:70, T2:80, T3:100, T4:0, C1:63, S1:30, T5:80, T6:75, T7:60, T8:0, C2:0},
-  {NISN:"0102371225", NAMA:"ARYA BHIMA SUTANARENDRA HADIUSODO", KELAS:"X 1", T1:75, T2:80, T3:80, T4:0, C1:60, S1:15, T5:80, T6:100, T7:60, T8:75, C2:0},
-  {NISN:"0094238385", NAMA:"AYRA DIAH AGNESA", KELAS:"X 1", T1:75, T2:100, T3:80, T4:0, C1:63, S1:10, T5:70, T6:75, T7:60, T8:75, C2:0},
-  {NISN:"0105461165", NAMA:"AZHAR HIDAYAT DHARMA ATMOKO", KELAS:"X 1", T1:100, T2:100, T3:98, T4:0, C1:67, S1:15, T5:85, T6:100, T7:60, T8:90, C2:0},
-  {NISN:"0097206174", NAMA:"CAHYA KAMILA", KELAS:"X 1", T1:75, T2:75, T3:85, T4:0, C1:63, S1:10, T5:75, T6:75, T7:40, T8:85, C2:82},
-  {NISN:"0095735226", NAMA:"CARISSA ARUNI WIDYADHANA", KELAS:"X 1", T1:75, T2:100, T3:80, T4:0, C1:67, S1:1, T5:70, T6:75, T7:60, T8:78, C2:82},
-  {NISN:"0101727711", NAMA:"CHESTA KAYNA MOZABI", KELAS:"X 1", T1:75, T2:90, T3:85, T4:0, C1:63, S1:2, T5:80, T6:100, T7:60, T8:75, C2:0}
-];
-
-function tampilkanNilai() {
-  const nisnInput = document.getElementById("nisn").value.trim();
-  const siswa = dataSiswa.find(s => s.NISN === nisnInput);
-
-  if (!siswa) {
-    alert("NISN tidak ditemukan. Coba lagi!");
-    return;
-  }
-
-  document.getElementById("loginForm").classList.add("hidden");
-  document.getElementById("hasil").classList.remove("hidden");
-  document.getElementById("namaSiswa").innerHTML = `${siswa.NAMA} (${siswa.KELAS})`;
-
-  const tabelBody = document.querySelector("#tabelNilai tbody");
-  tabelBody.innerHTML = `
-    <tr><td>Tugas 1 Konsep Geografi</td><td>${siswa.T1}</td></tr>
-    <tr><td>Tugas 2 Diagram Cabang Ilmu Geografi</td><td>${siswa.T2}</td></tr>
-    <tr><td>Tugas 3 Contoh Prinsip Geografi</td><td>${siswa.T3}</td></tr>
-    <tr><td>Tugas 4 Perkembangan Ilmu Geografi</td><td>${siswa.T4}</td></tr>
-    <tr><td>Catatan Dasar Geografi</td><td>${siswa.C1}</td></tr>
-    <tr><td>Sumatif Harian 1 Dasar Geografi</td><td>${siswa.S1}</td></tr>
-    <tr><td>Tugas 5 Analisis Komponen Peta Topografi dan Persebaran Industri</td><td>${siswa.T5}</td></tr>
-    <tr><td>Tugas 6 Menghitung Skala Peta</td><td>${siswa.T6}</td></tr>
-    <tr><td>Tugas 7 Menghitung Skala Foto Udara</td><td>${siswa.T7}</td></tr>
-    <tr><td>Tugas 8 Manfaat SIG</td><td>${siswa.T8}</td></tr>
-    <tr><td>Catatan Peta, Pengindraan Jauh, SIG</td><td>${siswa.C2}</td></tr>
-  `;
-}
-</script>
-
-</body>
+  <script>
+    const defaultConfig = {
+      app_title: "Media Pembelajaran Interaktif Ekonomi Kelas 12 SMA",
+      welcome_message: "Selamat datang di aplikasi pembelajaran interaktif Ekonomi",
+      primary_color: "#ff6b6b",
+      secondary_color: "#4ecdc4",
+      background_color: "#fff9e6",
+      text_color: "#2c3e50",
+      accent_color: "#ffa726"
+    };
+    
+    let currentStudent = null;
+    let currentQuizTopic = '';
+    let currentQuestionIndex = 0;
+    let quizQuestions = [];
+    let userAnswers = [];
+    let allResults = [];
+    
+    const quizData = {
+      perdagangan: [
+        {
+          type: 'multiple',
+          question: 'Apa yang dimaksud dengan perdagangan internasional?',
+          options: [
+            'Perdagangan antar provinsi dalam satu negara',
+            'Perdagangan yang melibatkan dua negara atau lebih',
+            'Perdagangan dalam satu kota',
+            'Perdagangan online'
+          ],
+          correct: 1
+        },
+        {
+          type: 'multiple',
+          question: 'Teori keunggulan komparatif dikemukakan oleh?',
+          options: ['Adam Smith', 'David Ricardo', 'John Maynard Keynes', 'Karl Marx'],
+          correct: 1
+        },
+        {
+          type: 'drag',
+          question: 'Cocokkan jenis hambatan perdagangan dengan definisinya',
+          items: ['Tarif', 'Kuota', 'Embargo', 'Subsidi'],
+          zones: [
+            'Pajak yang dikenakan pada barang impor',
+            'Pembatasan jumlah barang yang dapat diimpor',
+            'Larangan total perdagangan dengan negara tertentu',
+            'Bantuan pemerintah untuk produsen domestik'
+          ],
+          correctMatches: [0, 1, 2, 3]
+        },
+        {
+          type: 'multiple',
+          question: 'Organisasi perdagangan dunia yang mengatur perdagangan internasional adalah?',
+          options: ['IMF', 'World Bank', 'WTO', 'ASEAN'],
+          correct: 2
+        },
+        {
+          type: 'matching',
+          question: 'Cocokkan negara dengan produk ekspor utamanya',
+          leftItems: ['Indonesia', 'Arab Saudi', 'Jepang', 'Brasil'],
+          rightItems: ['Elektronik', 'Minyak Bumi', 'Kopi', 'Kelapa Sawit'],
+          correctPairs: [[0, 3], [1, 1], [2, 0], [3, 2]]
+        },
+        {
+          type: 'multiple',
+          question: 'Apa yang dimaksud dengan neraca perdagangan?',
+          options: [
+            'Selisih antara ekspor dan impor',
+            'Total nilai ekspor',
+            'Total nilai impor',
+            'Jumlah barang yang diperdagangkan'
+          ],
+          correct: 0
+        },
+        {
+          type: 'crossword',
+          question: 'Teka-teki Silang Perdagangan Internasional',
+          grid: [
+            ['E', 'K', 'S', 'P', 'O', 'R'],
+            ['X', '', '', '', '', ''],
+            ['P', 'A', 'S', 'A', 'R', ''],
+            ['O', '', '', '', '', ''],
+            ['R', '', '', '', '', ''],
+            ['T', 'A', 'R', 'I', 'F', '']
+          ],
+          clues: {
+            across: ['1. Kegiatan menjual barang ke luar negeri (6)', '3. Tempat bertemunya penjual dan pembeli (5)', '6. Pajak yang dikenakan pada barang impor (5)'],
+            down: ['1. Kegiatan membeli barang dari luar negeri (6)']
+          }
+        },
+        {
+          type: 'multiple',
+          question: 'Manfaat perdagangan internasional bagi Indonesia adalah?',
+          options: [
+            'Meningkatkan devisa negara',
+            'Mengurangi lapangan kerja',
+            'Menurunkan kualitas produk',
+            'Menghambat pertumbuhan ekonomi'
+          ],
+          correct: 0
+        },
+        {
+          type: 'drag',
+          question: 'Urutkan tahapan proses ekspor yang benar',
+          items: ['Produksi Barang', 'Pengemasan', 'Pengiriman', 'Pembayaran'],
+          zones: ['Tahap 1', 'Tahap 2', 'Tahap 3', 'Tahap 4'],
+          correctMatches: [0, 1, 2, 3]
+        },
+        {
+          type: 'multiple',
+          question: 'Apa yang dimaksud dengan dumping dalam perdagangan internasional?',
+          options: [
+            'Menjual barang di luar negeri dengan harga lebih rendah dari harga domestik',
+            'Membeli barang dalam jumlah besar',
+            'Menukar barang dengan barang',
+            'Memberikan subsidi kepada eksportir'
+          ],
+          correct: 0
+        },
+        {
+          type: 'matching',
+          question: 'Cocokkan istilah dengan artinya',
+          leftItems: ['FOB', 'CIF', 'Letter of Credit', 'Bill of Lading'],
+          rightItems: ['Dokumen pengiriman barang', 'Harga termasuk asuransi dan ongkir', 'Jaminan pembayaran dari bank', 'Harga di pelabuhan asal'],
+          correctPairs: [[0, 3], [1, 1], [2, 2], [3, 0]]
+        },
+        {
+          type: 'multiple',
+          question: 'Faktor yang mendorong terjadinya perdagangan internasional adalah?',
+          options: [
+            'Perbedaan sumber daya alam',
+            'Kesamaan teknologi',
+            'Tidak ada perbedaan harga',
+            'Isolasi ekonomi'
+          ],
+          correct: 0
+        },
+        {
+          type: 'multiple',
+          question: 'Kebijakan proteksi perdagangan bertujuan untuk?',
+          options: [
+            'Melindungi industri dalam negeri',
+            'Meningkatkan impor',
+            'Menurunkan ekspor',
+            'Menghapus bea masuk'
+          ],
+          correct: 0
+        },
+        {
+          type: 'drag',
+          question: 'Cocokkan jenis perdagangan dengan karakteristiknya',
+          items: ['Bilateral', 'Multilateral', 'Regional', 'Global'],
+          zones: [
+            'Perdagangan antara dua negara',
+            'Perdagangan melibatkan banyak negara',
+            'Perdagangan dalam satu kawasan',
+            'Perdagangan di seluruh dunia'
+          ],
+          correctMatches: [0, 1, 2, 3]
+        },
+        {
+          type: 'multiple',
+          question: 'ASEAN Free Trade Area (AFTA) bertujuan untuk?',
+          options: [
+            'Menciptakan kawasan perdagangan bebas di ASEAN',
+            'Meningkatkan tarif impor',
+            'Membatasi ekspor antar negara ASEAN',
+            'Menghapus perdagangan internasional'
+          ],
+          correct: 0
+        },
+        {
+          type: 'matching',
+          question: 'Cocokkan organisasi dengan fungsinya',
+          leftItems: ['WTO', 'IMF', 'World Bank', 'UNCTAD'],
+          rightItems: ['Pembangunan ekonomi', 'Perdagangan dunia', 'Keuangan internasional', 'Perdagangan dan pembangunan'],
+          correctPairs: [[0, 1], [1, 2], [2, 0], [3, 3]]
+        },
+        {
+          type: 'multiple',
+          question: 'Apa yang dimaksud dengan kuota impor?',
+          options: [
+            'Pembatasan jumlah barang yang dapat diimpor',
+            'Pajak atas barang impor',
+            'Larangan total impor',
+            'Subsidi untuk importir'
+          ],
+          correct: 0
+        },
+        {
+          type: 'multiple',
+          question: 'Devisa negara dapat diperoleh dari?',
+          options: ['Ekspor barang dan jasa', 'Impor barang', 'Konsumsi domestik', 'Inflasi'],
+          correct: 0
+        },
+        {
+          type: 'drag',
+          question: 'Urutkan dokumen ekspor yang diperlukan',
+          items: ['Invoice', 'Packing List', 'Certificate of Origin', 'Bill of Lading'],
+          zones: ['Dokumen 1', 'Dokumen 2', 'Dokumen 3', 'Dokumen 4'],
+          correctMatches: [0, 1, 2, 3]
+        },
+        {
+          type: 'multiple',
+          question: 'Keuntungan perdagangan internasional menurut teori keunggulan absolut adalah?',
+          options: [
+            'Setiap negara fokus pada produksi yang paling efisien',
+            'Semua negara memproduksi semua barang',
+            'Tidak ada spesialisasi produksi',
+            'Mengurangi efisiensi produksi'
+          ],
+          correct: 0
+        }
+      ],
+      pembayaran: [
+        {
+          type: 'multiple',
+          question: 'Apa yang dimaksud dengan sistem pembayaran internasional?',
+          options: [
+            'Mekanisme pembayaran dalam satu negara',
+            'Mekanisme pembayaran antar negara yang berbeda',
+            'Pembayaran tunai saja',
+            'Pembayaran dengan kartu kredit'
+          ],
+          correct: 1
+        },
+        {
+          type: 'multiple',
+          question: 'Alat pembayaran internasional yang paling umum digunakan adalah?',
+          options: ['Rupiah', 'Yen', 'Dolar AS', 'Ringgit'],
+          correct: 2
+        },
+        {
+          type: 'drag',
+          question: 'Cocokkan jenis valuta asing dengan negaranya',
+          items: ['Dollar', 'Euro', 'Yen', 'Poundsterling'],
+          zones: ['Amerika Serikat', 'Uni Eropa', 'Jepang', 'Inggris'],
+          correctMatches: [0, 1, 2, 3]
+        },
+        {
+          type: 'multiple',
+          question: 'Letter of Credit (L/C) adalah?',
+          options: [
+            'Surat utang',
+            'Jaminan pembayaran dari bank',
+            'Kartu kredit',
+            'Cek perjalanan'
+          ],
+          correct: 1
+        },
+        {
+          type: 'matching',
+          question: 'Cocokkan istilah pembayaran dengan definisinya',
+          leftItems: ['SWIFT', 'Telegraphic Transfer', 'Money Order', 'Bank Draft'],
+          rightItems: ['Wesel pos', 'Transfer kawat', 'Jaringan transfer bank', 'Cek bank'],
+          correctPairs: [[0, 2], [1, 1], [2, 0], [3, 3]]
+        },
+        {
+          type: 'multiple',
+          question: 'Kurs valuta asing ditentukan oleh?',
+          options: [
+            'Penawaran dan permintaan',
+            'Pemerintah saja',
+            'Bank sentral saja',
+            'Harga emas'
+          ],
+          correct: 0
+        },
+        {
+          type: 'crossword',
+          question: 'Teka-teki Silang Sistem Pembayaran',
+          grid: [
+            ['V', 'A', 'L', 'U', 'T', 'A'],
+            ['', '', '', '', '', ''],
+            ['K', 'U', 'R', 'S', '', ''],
+            ['', '', '', '', '', ''],
+            ['D', 'E', 'V', 'I', 'S', 'A']
+          ],
+          clues: {
+            across: ['1. Mata uang asing (6)', '3. Nilai tukar mata uang (4)', '5. Cadangan mata uang asing negara (6)'],
+            down: []
+          }
+        },
+        {
+          type: 'multiple',
+          question: 'Fungsi utama Bank Indonesia dalam sistem pembayaran adalah?',
+          options: [
+            'Mengatur dan menjaga kelancaran sistem pembayaran',
+            'Memberikan pinjaman kepada masyarakat',
+            'Menjual valuta asing',
+            'Mengimpor barang'
+          ],
+          correct: 0
+        },
+        {
+          type: 'drag',
+          question: 'Urutkan proses pembayaran internasional dengan L/C',
+          items: ['Pembeli membuka L/C', 'Bank menerbitkan L/C', 'Penjual mengirim barang', 'Bank membayar penjual'],
+          zones: ['Langkah 1', 'Langkah 2', 'Langkah 3', 'Langkah 4'],
+          correctMatches: [0, 1, 2, 3]
+        },
+        {
+          type: 'multiple',
+          question: 'Apa yang dimaksud dengan kliring internasional?',
+          options: [
+            'Penyelesaian transaksi antar bank di berbagai negara',
+            'Pembayaran tunai',
+            'Transfer dalam negeri',
+            'Pembayaran dengan cek'
+          ],
+          correct: 0
+        },
+        {
+          type: 'matching',
+          question: 'Cocokkan jenis kurs dengan karakteristiknya',
+          leftItems: ['Kurs Jual', 'Kurs Beli', 'Kurs Tengah', 'Kurs Spot'],
+          rightItems: ['Kurs saat ini', 'Kurs bank membeli valuta', 'Rata-rata kurs jual dan beli', 'Kurs bank menjual valuta'],
+          correctPairs: [[0, 3], [1, 1], [2, 2], [3, 0]]
+        },
+        {
+          type: 'multiple',
+          question: 'Sistem pembayaran elektronik yang berkembang saat ini adalah?',
+          options: ['E-money dan mobile banking', 'Uang kertas', 'Uang logam', 'Barter'],
+          correct: 0
+        },
+        {
+          type: 'multiple',
+          question: 'Apa fungsi SWIFT dalam pembayaran internasional?',
+          options: [
+            'Jaringan komunikasi antar bank untuk transfer dana',
+            'Mata uang internasional',
+            'Kartu kredit',
+            'Asuransi pembayaran'
+          ],
+          correct: 0
+        },
+        {
+          type: 'drag',
+          question: 'Cocokkan metode pembayaran dengan kelebihannya',
+          items: ['Cash in Advance', 'Letter of Credit', 'Open Account', 'Consignment'],
+          zones: [
+            'Aman untuk penjual',
+            'Seimbang untuk kedua pihak',
+            'Menguntungkan pembeli',
+            'Pembayaran setelah barang laku'
+          ],
+          correctMatches: [0, 1, 2, 3]
+        },
+        {
+          type: 'multiple',
+          question: 'Faktor yang mempengaruhi kurs valuta asing adalah?',
+          options: [
+            'Inflasi, suku bunga, dan neraca pembayaran',
+            'Cuaca',
+            'Jumlah penduduk',
+            'Luas wilayah'
+          ],
+          correct: 0
+        },
+        {
+          type: 'matching',
+          question: 'Cocokkan lembaga dengan perannya',
+          leftItems: ['Bank Sentral', 'Bank Komersial', 'Money Changer', 'Kliring House'],
+          rightItems: ['Penyelesaian transaksi', 'Kebijakan moneter', 'Layanan perbankan', 'Penukaran valuta'],
+          correctPairs: [[0, 1], [1, 2], [2, 3], [3, 0]]
+        },
+        {
+          type: 'multiple',
+          question: 'Apa yang dimaksud dengan hedging dalam valuta asing?',
+          options: [
+            'Lindung nilai terhadap risiko perubahan kurs',
+            'Spekulasi mata uang',
+            'Penukaran uang',
+            'Transfer dana'
+          ],
+          correct: 0
+        },
+        {
+          type: 'multiple',
+          question: 'Sistem pembayaran real-time gross settlement (RTGS) adalah?',
+          options: [
+            'Sistem transfer dana dalam jumlah besar secara real-time',
+            'Pembayaran dengan kartu',
+            'Transfer kecil',
+            'Pembayaran tunai'
+          ],
+          correct: 0
+        },
+        {
+          type: 'drag',
+          question: 'Urutkan evolusi sistem pembayaran',
+          items: ['Barter', 'Uang Komoditas', 'Uang Kertas', 'Uang Elektronik'],
+          zones: ['Era 1', 'Era 2', 'Era 3', 'Era 4'],
+          correctMatches: [0, 1, 2, 3]
+        },
+        {
+          type: 'multiple',
+          question: 'Keuntungan menggunakan Letter of Credit adalah?',
+          options: [
+            'Memberikan jaminan pembayaran kepada eksportir',
+            'Tidak ada biaya',
+            'Proses sangat cepat',
+            'Tidak perlu dokumen'
+          ],
+          correct: 0
+        }
+      ],
+      'apbd-apbn': [
+        {
+          type: 'multiple',
+          question: 'Apa kepanjangan dari APBN?',
+          options: [
+            'Anggaran Pendapatan dan Belanja Negara',
+            'Anggaran Penerimaan dan Biaya Negara',
+            'Anggaran Pembangunan Bangsa Negara',
+            'Anggaran Pengeluaran Belanja Nasional'
+          ],
+          correct: 0
+        },
+        {
+          type: 'multiple',
+          question: 'APBD adalah anggaran untuk?',
+          options: ['Pemerintah pusat', 'Pemerintah daerah', 'Perusahaan negara', 'Bank sentral'],
+          correct: 1
+        },
+        {
+          type: 'drag',
+          question: 'Cocokkan sumber pendapatan dengan jenisnya',
+          items: ['Pajak', 'Retribusi', 'Hibah', 'Laba BUMN'],
+          zones: ['Pendapatan Pajak', 'Pendapatan Non-Pajak', 'Pendapatan Hibah', 'Pendapatan BUMN'],
+          correctMatches: [0, 1, 2, 3]
+        },
+        {
+          type: 'multiple',
+          question: 'Siapa yang menetapkan APBN?',
+          options: ['Presiden', 'DPR', 'Presiden dan DPR', 'Menteri Keuangan'],
+          correct: 2
+        },
+        {
+          type: 'matching',
+          question: 'Cocokkan jenis belanja dengan contohnya',
+          leftItems: ['Belanja Pegawai', 'Belanja Modal', 'Belanja Sosial', 'Belanja Subsidi'],
+          rightItems: ['Bantuan BBM', 'Gaji PNS', 'Pembangunan jalan', 'Bantuan sosial'],
+          correctPairs: [[0, 1], [1, 2], [2, 3], [3, 0]]
+        },
+        {
+          type: 'multiple',
+          question: 'Fungsi APBN sebagai alat stabilisasi ekonomi adalah?',
+          options: [
+            'Menjaga kestabilan ekonomi dan mengatasi inflasi',
+            'Meningkatkan pajak',
+            'Mengurangi belanja',
+            'Menambah utang'
+          ],
+          correct: 0
+        },
+        {
+          type: 'crossword',
+          question: 'Teka-teki Silang APBN & APBD',
+          grid: [
+            ['P', 'A', 'J', 'A', 'K'],
+            ['', '', '', '', ''],
+            ['D', 'E', 'F', 'I', 'S', 'I', 'T'],
+            ['', '', '', '', '', '', ''],
+            ['S', 'U', 'R', 'P', 'L', 'U', 'S']
+          ],
+          clues: {
+            across: ['1. Sumber utama pendapatan negara (5)', '3. Kondisi belanja lebih besar dari pendapatan (7)', '5. Kondisi pendapatan lebih besar dari belanja (7)'],
+            down: []
+          }
+        },
+        {
+          type: 'multiple',
+          question: 'Tahun anggaran APBN di Indonesia dimulai pada?',
+          options: ['1 Januari', '1 April', '1 Juli', '1 Oktober'],
+          correct: 0
+        },
+        {
+          type: 'drag',
+          question: 'Urutkan proses penyusunan APBN',
+          items: ['Pemerintah menyusun RAPBN', 'Pembahasan dengan DPR', 'Penetapan APBN', 'Pelaksanaan APBN'],
+          zones: ['Tahap 1', 'Tahap 2', 'Tahap 3', 'Tahap 4'],
+          correctMatches: [0, 1, 2, 3]
+        },
+        {
+          type: 'multiple',
+          question: 'Apa yang dimaksud dengan defisit anggaran?',
+          options: [
+            'Belanja lebih besar dari pendapatan',
+            'Pendapatan lebih besar dari belanja',
+            'Pendapatan sama dengan belanja',
+            'Tidak ada belanja'
+          ],
+          correct: 0
+        },
+        {
+          type: 'matching',
+          question: 'Cocokkan jenis pajak dengan tingkatannya',
+          leftItems: ['PPh', 'PBB', 'Pajak Kendaraan', 'Pajak Hotel'],
+          rightItems: ['Pajak Daerah', 'Pajak Pusat', 'Pajak Pusat', 'Pajak Daerah'],
+          correctPairs: [[0, 1], [1, 2], [2, 0], [3, 3]]
+        },
+        {
+          type: 'multiple',
+          question: 'Sumber pendapatan daerah yang berasal dari daerah sendiri disebut?',
+          options: ['PAD (Pendapatan Asli Daerah)', 'Dana Perimbangan', 'Hibah', 'Pinjaman'],
+          correct: 0
+        },
+        {
+          type: 'multiple',
+          question: 'Dana Alokasi Umum (DAU) adalah?',
+          options: [
+            'Transfer dari pemerintah pusat ke daerah',
+            'Pajak daerah',
+            'Retribusi daerah',
+            'Pinjaman daerah'
+          ],
+          correct: 0
+        },
+        {
+          type: 'drag',
+          question: 'Cocokkan fungsi APBN dengan penjelasannya',
+          items: ['Alokasi', 'Distribusi', 'Stabilisasi', 'Otorisasi'],
+          zones: [
+            'Mengalokasikan sumber daya',
+            'Pemerataan pendapatan',
+            'Menjaga stabilitas ekonomi',
+            'Dasar pelaksanaan pendapatan dan belanja'
+          ],
+          correctMatches: [0, 1, 2, 3]
+        },
+        {
+          type: 'multiple',
+          question: 'Belanja negara yang digunakan untuk pembangunan infrastruktur disebut?',
+          options: ['Belanja Modal', 'Belanja Pegawai', 'Belanja Barang', 'Belanja Sosial'],
+          correct: 0
+        },
+        {
+          type: 'matching',
+          question: 'Cocokkan istilah dengan artinya',
+          leftItems: ['RAPBN', 'APBN-P', 'Realisasi', 'Surplus'],
+          rightItems: ['Pendapatan > Belanja', 'Rancangan APBN', 'APBN Perubahan', 'Pelaksanaan anggaran'],
+          correctPairs: [[0, 1], [1, 2], [2, 3], [3, 0]]
+        },
+        {
+          type: 'multiple',
+          question: 'Lembaga yang mengawasi pelaksanaan APBN adalah?',
+          options: ['BPK (Badan Pemeriksa Keuangan)', 'DPR', 'Presiden', 'Menteri Keuangan'],
+          correct: 0
+        },
+        {
+          type: 'multiple',
+          question: 'Apa tujuan utama penyusunan APBD?',
+          options: [
+            'Pedoman pengelolaan keuangan daerah',
+            'Meningkatkan pajak',
+            'Mengurangi belanja',
+            'Menambah utang daerah'
+          ],
+          correct: 0
+        },
+        {
+          type: 'drag',
+          question: 'Urutkan komponen APBN',
+          items: ['Pendapatan Negara', 'Belanja Negara', 'Pembiayaan', 'Surplus/Defisit'],
+          zones: ['Komponen 1', 'Komponen 2', 'Komponen 3', 'Komponen 4'],
+          correctMatches: [0, 1, 3, 2]
+        },
+        {
+          type: 'multiple',
+          question: 'Prinsip penyusunan APBN yang baik adalah?',
+          options: [
+            'Transparan, akuntabel, dan efisien',
+            'Tertutup dan rahasia',
+            'Tidak perlu laporan',
+            'Bebas dari pengawasan'
+          ],
+          correct: 0
+        }
+      ]
+    };
+    
+    const dataHandler = {
+      onDataChanged(data) {
+        allResults = data;
+        if (document.getElementById('leaderboard-section').classList.contains('active')) {
+          renderLeaderboard();
+        }
+      }
+    };
+    
+    async function initApp() {
+      const initResult = await window.dataSdk.init(dataHandler);
+      if (!initResult.isOk) {
+        console.error('Failed to initialize data SDK');
+      }
+    }
+    
+    async function handleLogin(event) {
+      event.preventDefault();
+      
+      const loginBtn = document.getElementById('login-btn');
+      loginBtn.disabled = true;
+      loginBtn.textContent = 'Memproses...';
+      
+      const studentName = document.getElementById('student-name').value;
+      const className = document.getElementById('class-name').value;
+      
+      currentStudent = { name: studentName, class: className };
+      
+      document.getElementById('login-section').classList.remove('active');
+      document.getElementById('nav-buttons').style.display = 'flex';
+      showSection('library');
+      
+      loginBtn.disabled = false;
+      loginBtn.textContent = 'Masuk';
+    }
+    
+    function logout() {
+      currentStudent = null;
+      document.getElementById('nav-buttons').style.display = 'none';
+      document.querySelectorAll('.content-section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.getElementById('login-section').classList.add('active');
+      document.getElementById('login-form').reset();
+    }
+    
+    function showSection(sectionName) {
+      document.querySelectorAll('.content-section').forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      document.querySelectorAll('.menu-card').forEach(card => {
+        card.classList.remove('active');
+      });
+      
+      const section = document.getElementById(sectionName + '-section');
+      if (section) {
+        section.classList.add('active');
+      }
+      
+      if (sectionName === 'leaderboard') {
+        renderLeaderboard();
+      }
+    }
+    
+    function startQuiz(topic) {
+      if (allResults.length >= 999) {
+        showToast('Batas maksimum 999 hasil telah tercapai. Silakan hubungi guru untuk menghapus data lama.', 'warning');
+        return;
+      }
+      
+      currentQuizTopic = topic;
+      quizQuestions = [...quizData[topic]];
+      currentQuestionIndex = 0;
+      userAnswers = new Array(quizQuestions.length).fill(null);
+      
+      const topicNames = {
+        'perdagangan': 'Perdagangan Internasional',
+        'pembayaran': 'Sistem Pembayaran Internasional',
+        'apbd-apbn': 'APBD & APBN'
+      };
+      
+      document.getElementById('quiz-topic').textContent = topicNames[topic];
+      document.getElementById('total-questions').textContent = quizQuestions.length;
+      
+      showSection('quiz');
+      renderQuestion();
+    }
+    
+    function renderQuestion() {
+      const question = quizQuestions[currentQuestionIndex];
+      const container = document.getElementById('question-container');
+      
+      document.getElementById('current-question').textContent = currentQuestionIndex + 1;
+      
+      document.getElementById('prev-btn').style.display = currentQuestionIndex === 0 ? 'none' : 'block';
+      document.getElementById('next-btn').style.display = currentQuestionIndex === quizQuestions.length - 1 ? 'none' : 'block';
+      document.getElementById('submit-btn').style.display = currentQuestionIndex === quizQuestions.length - 1 ? 'block' : 'none';
+      
+      if (question.type === 'multiple') {
+        container.innerHTML = `
+          <div class="question-card">
+            <div class="question-text">${question.question}</div>
+            <div class="options">
+              ${question.options.map((option, index) => `
+                <div class="option ${userAnswers[currentQuestionIndex] === index ? 'selected' : ''}" 
+                     onclick="selectOption(${index})">
+                  ${option}
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      } else if (question.type === 'drag') {
+        const userAnswer = userAnswers[currentQuestionIndex] || {};
+        container.innerHTML = `
+          <div class="question-card">
+            <div class="question-text">${question.question}</div>
+            <div class="drag-drop-container">
+              <div class="drag-items">
+                <h4 style="margin-top: 0;">Item yang Tersedia:</h4>
+                ${question.items.map((item, index) => `
+                  <div class="drag-item" draggable="true" data-index="${index}" 
+                       ondragstart="handleDragStart(event)" 
+                       style="${userAnswer[index] !== undefined ? 'opacity: 0.3; cursor: not-allowed;' : ''}">
+                    ${item}
+                  </div>
+                `).join('')}
+              </div>
+              <div class="drop-zones">
+                <h4 style="margin-top: 0;">Zona Jawaban:</h4>
+                ${question.zones.map((zone, index) => `
+                  <div class="drop-zone ${userAnswer[index] !== undefined ? 'filled' : ''}" 
+                       data-zone="${index}"
+                       ondragover="handleDragOver(event)" 
+                       ondrop="handleDrop(event)">
+                    <strong>${zone}</strong>
+                    ${userAnswer[index] !== undefined ? `<div style="margin-top: 8px; color: #667eea; font-weight: 600;">${question.items[userAnswer[index]]}</div>` : ''}
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (question.type === 'crossword') {
+        const userAnswer = userAnswers[currentQuestionIndex] || {};
+        const gridSize = question.grid.length;
+        container.innerHTML = `
+          <div class="question-card">
+            <div class="question-text">${question.question}</div>
+            <div class="crossword-grid" style="grid-template-columns: repeat(${question.grid[0].length}, 40px);">
+              ${question.grid.map((row, rowIndex) => 
+                row.map((cell, colIndex) => {
+                  if (cell === '') {
+                    return '<div class="crossword-cell black"></div>';
+                  }
+                  const key = `${rowIndex}-${colIndex}`;
+                  return `
+                    <div class="crossword-cell">
+                      <input type="text" maxlength="1" 
+                             data-row="${rowIndex}" 
+                             data-col="${colIndex}"
+                             value="${userAnswer[key] || ''}"
+                             onkeyup="handleCrosswordInput(event)">
+                    </div>
+                  `;
+                }).join('')
+              ).join('')}
+            </div>
+            <div class="crossword-clues">
+              <div class="clue-section">
+                <h4>Mendatar:</h4>
+                ${question.clues.across.map(clue => `<div class="clue-item">${clue}</div>`).join('')}
+              </div>
+              <div class="clue-section">
+                <h4>Menurun:</h4>
+                ${question.clues.down.map(clue => `<div class="clue-item">${clue}</div>`).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (question.type === 'matching') {
+        const userAnswer = userAnswers[currentQuestionIndex] || { selected: [], matches: [] };
+        container.innerHTML = `
+          <div class="question-card">
+            <div class="question-text">${question.question}</div>
+            <div class="matching-container">
+              <div>
+                <h4 style="margin-top: 0;">Kolom A:</h4>
+                ${question.leftItems.map((item, index) => `
+                  <div class="matching-item ${userAnswer.selected[0] === index ? 'selected' : ''} ${userAnswer.matches.some(m => m[0] === index) ? 'matched' : ''}" 
+                       onclick="selectMatchingItem(0, ${index})">
+                    ${item}
+                  </div>
+                `).join('')}
+              </div>
+              <div>
+                <h4 style="margin-top: 0;">Kolom B:</h4>
+                ${question.rightItems.map((item, index) => `
+                  <div class="matching-item ${userAnswer.selected[1] === index ? 'selected' : ''} ${userAnswer.matches.some(m => m[1] === index) ? 'matched' : ''}" 
+                       onclick="selectMatchingItem(1, ${index})">
+                    ${item}
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    }
+    
+    function selectOption(index) {
+      userAnswers[currentQuestionIndex] = index;
+      renderQuestion();
+    }
+    
+    let draggedItem = null;
+    
+    function handleDragStart(event) {
+      const userAnswer = userAnswers[currentQuestionIndex] || {};
+      const itemIndex = parseInt(event.target.dataset.index);
+      
+      if (Object.values(userAnswer).includes(itemIndex)) {
+        event.preventDefault();
+        return;
+      }
+      
+      draggedItem = itemIndex;
+      event.target.classList.add('dragging');
+    }
+    
+    function handleDragOver(event) {
+      event.preventDefault();
+      event.currentTarget.classList.add('drag-over');
+    }
+    
+    function handleDrop(event) {
+      event.preventDefault();
+      event.currentTarget.classList.remove('drag-over');
+      
+      if (draggedItem === null) return;
+      
+      const zoneIndex = parseInt(event.currentTarget.dataset.zone);
+      const userAnswer = userAnswers[currentQuestionIndex] || {};
+      
+      if (userAnswer[zoneIndex] !== undefined) {
+        return;
+      }
+      
+      userAnswer[zoneIndex] = draggedItem;
+      userAnswers[currentQuestionIndex] = userAnswer;
+      
+      draggedItem = null;
+      renderQuestion();
+    }
+    
+    function handleCrosswordInput(event) {
+      const row = event.target.dataset.row;
+      const col = event.target.dataset.col;
+      const value = event.target.value.toUpperCase();
+      
+      const userAnswer = userAnswers[currentQuestionIndex] || {};
+      userAnswer[`${row}-${col}`] = value;
+      userAnswers[currentQuestionIndex] = userAnswer;
+    }
+    
+    function selectMatchingItem(column, index) {
+      const userAnswer = userAnswers[currentQuestionIndex] || { selected: [], matches: [] };
+      
+      if (userAnswer.matches.some(m => (column === 0 && m[0] === index) || (column === 1 && m[1] === index))) {
+        return;
+      }
+      
+      if (userAnswer.selected[column] === index) {
+        userAnswer.selected[column] = undefined;
+      } else {
+        userAnswer.selected[column] = index;
+      }
+      
+      if (userAnswer.selected[0] !== undefined && userAnswer.selected[1] !== undefined) {
+        userAnswer.matches.push([userAnswer.selected[0], userAnswer.selected[1]]);
+        userAnswer.selected = [];
+      }
+      
+      userAnswers[currentQuestionIndex] = userAnswer;
+      renderQuestion();
+    }
+    
+    function previousQuestion() {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        renderQuestion();
+      }
+    }
+    
+    function nextQuestion() {
+      if (currentQuestionIndex < quizQuestions.length - 1) {
+        currentQuestionIndex++;
+        renderQuestion();
+      }
+    }
+    
+    async function submitQuiz() {
+      if (allResults.length >= 999) {
+        showToast('Batas maksimum 999 hasil telah tercapai. Tidak dapat menyimpan hasil.', 'warning');
+        return;
+      }
+      
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Memproses...';
+      
+      let score = 0;
+      
+      quizQuestions.forEach((question, index) => {
+        const userAnswer = userAnswers[index];
+        
+        if (question.type === 'multiple') {
+          if (userAnswer === question.correct) {
+            score++;
+          }
+        } else if (question.type === 'drag') {
+          if (userAnswer && Object.keys(userAnswer).length === question.zones.length) {
+            let correct = true;
+            for (let i = 0; i < question.zones.length; i++) {
+              if (userAnswer[i] !== question.correctMatches[i]) {
+                correct = false;
+                break;
+              }
+            }
+            if (correct) score++;
+          }
+        } else if (question.type === 'crossword') {
+          if (userAnswer) {
+            let correct = true;
+            question.grid.forEach((row, rowIndex) => {
+              row.forEach((cell, colIndex) => {
+                if (cell !== '') {
+                  const key = `${rowIndex}-${colIndex}`;
+                  if (!userAnswer[key] || userAnswer[key].toUpperCase() !== cell) {
+                    correct = false;
+                  }
+                }
+              });
+            });
+            if (correct) score++;
+          }
+        } else if (question.type === 'matching') {
+          if (userAnswer && userAnswer.matches && userAnswer.matches.length === question.correctPairs.length) {
+            let correct = true;
+            question.correctPairs.forEach(pair => {
+              if (!userAnswer.matches.some(m => m[0] === pair[0] && m[1] === pair[1])) {
+                correct = false;
+              }
+            });
+            if (correct) score++;
+          }
+        }
+      });
+      
+      const percentage = Math.round((score / quizQuestions.length) * 100);
+      
+      const result = {
+        id: Date.now().toString(),
+        student_name: currentStudent.name,
+        class_name: currentStudent.class,
+        topic: currentQuizTopic,
+        score: percentage,
+        total_questions: quizQuestions.length,
+        completed_at: new Date().toISOString(),
+        answers: JSON.stringify(userAnswers)
+      };
+      
+      const createResult = await window.dataSdk.create(result);
+      
+      if (createResult.isOk) {
+        document.getElementById('final-score').textContent = percentage + '%';
+        
+        let message = '';
+        if (percentage >= 90) {
+          message = '🎉 Luar biasa! Nilai Anda sangat memuaskan!';
+        } else if (percentage >= 75) {
+          message = '👏 Bagus! Pertahankan prestasi Anda!';
+        } else if (percentage >= 60) {
+          message = '👍 Cukup baik! Terus belajar ya!';
+        } else {
+          message = '💪 Jangan menyerah! Coba lagi dan pelajari materinya!';
+        }
+        
+        document.getElementById('results-message').textContent = message;
+        showSection('results');
+        showToast('Hasil berhasil disimpan!', 'success');
+      } else {
+        showToast('Gagal menyimpan hasil. Silakan coba lagi.', 'error');
+      }
+      
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Selesai';
+    }
+    
+    function renderLeaderboard() {
+      const content = document.getElementById('leaderboard-content');
+      
+      if (allResults.length === 0) {
+        content.innerHTML = '<p style="text-align: center; color: #666; padding: 40px;">Belum ada data hasil asesmen.</p>';
+        return;
+      }
+      
+      if (allResults.length >= 999) {
+        content.innerHTML = `
+          <div class="limit-warning">
+            ⚠️ Batas maksimum 999 hasil telah tercapai. Tidak dapat menambah hasil baru sampai data lama dihapus.
+          </div>
+        `;
+      }
+      
+      const topicNames = {
+        'perdagangan': 'Perdagangan Internasional',
+        'pembayaran': 'Sistem Pembayaran Internasional',
+        'apbd-apbn': 'APBD & APBN'
+      };
+      
+      const topics = ['perdagangan', 'pembayaran', 'apbd-apbn'];
+      
+      topics.forEach(topic => {
+        const topicResults = allResults
+          .filter(r => r.topic === topic)
+          .sort((a, b) => b.score - a.score);
+        
+        if (topicResults.length > 0) {
+          const tableHTML = `
+            <div style="margin-bottom: 40px;">
+              <h3 style="color: #667eea; margin-bottom: 15px;">${topicNames[topic]}</h3>
+              <table class="leaderboard-table">
+                <thead>
+                  <tr>
+                    <th>Peringkat</th>
+                    <th>Nama Siswa</th>
+                    <th>Kelas</th>
+                    <th>Nilai</th>
+                    <th>Tanggal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${topicResults.map((result, index) => {
+                    let badgeClass = '';
+                    if (index === 0) badgeClass = 'gold';
+                    else if (index === 1) badgeClass = 'silver';
+                    else if (index === 2) badgeClass = 'bronze';
+                    
+                    const date = new Date(result.completed_at);
+                    const dateStr = date.toLocaleDateString('id-ID', { 
+                      day: 'numeric', 
+                      month: 'short', 
+                      year: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit'
+                    });
+                    
+                    return `
+                      <tr>
+                        <td><span class="rank-badge ${badgeClass}">${index + 1}</span></td>
+                        <td><strong>${result.student_name}</strong></td>
+                        <td>${result.class_name}</td>
+                        <td><strong style="color: #667eea; font-size: 18px;">${result.score}%</strong></td>
+                        <td>${dateStr}</td>
+                      </tr>
+                    `;
+                  }).join('')}
+                </tbody>
+              </table>
+            </div>
+          `;
+          
+          if (content.querySelector('.limit-warning')) {
+            content.innerHTML += tableHTML;
+          } else {
+            content.innerHTML += tableHTML;
+          }
+        }
+      });
+    }
+    
+    function downloadPDF() {
+      const score = document.getElementById('final-score').textContent;
+      const message = document.getElementById('results-message').textContent;
+      
+      const topicNames = {
+        'perdagangan': 'Perdagangan Internasional',
+        'pembayaran': 'Sistem Pembayaran Internasional',
+        'apbd-apbn': 'APBD & APBN'
+      };
+      
+      const date = new Date().toLocaleDateString('id-ID', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      });
+      
+      const pdfContent = `
+        <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; padding: 40px; }
+            .header { text-align: center; margin-bottom: 30px; border-bottom: 3px solid #667eea; padding-bottom: 20px; }
+            .header h1 { color: #667eea; margin: 0; }
+            .content { margin: 30px 0; }
+            .info-row { display: flex; margin: 15px 0; }
+            .info-label { font-weight: bold; width: 200px; }
+            .score { font-size: 48px; color: #667eea; text-align: center; margin: 30px 0; font-weight: bold; }
+            .footer { margin-top: 50px; text-align: center; color: #666; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h1>LAPORAN HASIL ASESMEN</h1>
+            <p>Media Pembelajaran Interaktif Ekonomi Kelas 12 SMA</p>
+          </div>
+          <div class="content">
+            <div class="info-row">
+              <div class="info-label">Nama Siswa:</div>
+              <div>${currentStudent.name}</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Kelas:</div>
+              <div>${currentStudent.class}</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Materi:</div>
+              <div>${topicNames[currentQuizTopic]}</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Tanggal:</div>
+              <div>${date}</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label">Jumlah Soal:</div>
+              <div>${quizQuestions.length} soal</div>
+            </div>
+            <div class="score">${score}</div>
+            <p style="text-align: center; font-size: 18px;">${message}</p>
+          </div>
+          <div class="footer">
+            <p>Dokumen ini dicetak secara otomatis dari sistem</p>
+            <p>© 2024 Media Pembelajaran Interaktif Ekonomi Kelas 12 SMA</p>
+          </div>
+        </body>
+        </html>
+      `;
+      
+      const printWindow = window.open('', '_blank');
+      printWindow.document.write(pdfContent);
+      printWindow.document.close();
+      printWindow.print();
+    }
+    
+    function showToast(message, type) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      
+      if (type === 'error') {
+        toast.style.background = '#dc3545';
+      } else if (type === 'warning') {
+        toast.style.background = '#ffc107';
+        toast.style.color = '#333';
+      }
+      
+      document.body.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.remove();
+      }, 3000);
+    }
+    
+    function openVideoModal(videoId) {
+      const modal = document.getElementById('video-modal');
+      const modalVideo = document.getElementById('modal-video');
+      
+      modalVideo.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+      modal.classList.add('active');
+      
+      // Prevent body scroll when modal is open
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function openGoogleDriveVideo(fileId) {
+      const driveUrl = `https://drive.google.com/file/d/${fileId}/preview`;
+      const modal = document.getElementById('video-modal');
+      const modalVideo = document.getElementById('modal-video');
+      
+      modalVideo.src = driveUrl;
+      modal.classList.add('active');
+      
+      // Prevent body scroll when modal is open
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeVideoModal() {
+      const modal = document.getElementById('video-modal');
+      const modalVideo = document.getElementById('modal-video');
+      
+      modalVideo.src = '';
+      modal.classList.remove('active');
+      
+      // Restore body scroll
+      document.body.style.overflow = 'auto';
+    }
+    
+    // Close modal when clicking outside
+    document.getElementById('video-modal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeVideoModal();
+      }
+    });
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeVideoModal();
+      }
+    });
+    
+    const element = {
+      defaultConfig: defaultConfig,
+      onConfigChange: async (config) => {
+        const appTitle = document.getElementById('app-title');
+        const welcomeMessage = document.getElementById('welcome-message');
+        
+        if (appTitle) {
+          appTitle.textContent = config.app_title || defaultConfig.app_title;
+        }
+        
+        if (welcomeMessage) {
+          welcomeMessage.textContent = config.welcome_message || defaultConfig.welcome_message;
+        }
+        
+        const primaryColor = config.primary_color || defaultConfig.primary_color;
+        const secondaryColor = config.secondary_color || defaultConfig.secondary_color;
+        const backgroundColor = config.background_color || defaultConfig.background_color;
+        const textColor = config.text_color || defaultConfig.text_color;
+        const accentColor = config.accent_color || defaultConfig.accent_color;
+        
+        document.body.style.background = `linear-gradient(135deg, ${primaryColor} 0%, ${secondaryColor} 100%)`;
+        
+        document.querySelectorAll('.header, .content-section, .login-form, .menu-card, .option, .drag-item, .resource-item, .matching-item').forEach(el => {
+          el.style.background = backgroundColor;
+        });
+        
+        document.querySelectorAll('.header h1, .quiz-topic, h2, h3, .resource-link, .rank-badge, .score-display').forEach(el => {
+          el.style.color = primaryColor;
+        });
+        
+        document.querySelectorAll('.header p, .question-text, .clue-item, p, td, label').forEach(el => {
+          el.style.color = textColor;
+        });
+        
+        document.querySelectorAll('.btn-primary, .topic-card, .option.selected, .leaderboard-table th').forEach(el => {
+          el.style.background = primaryColor;
+        });
+        
+        document.querySelectorAll('.btn-success, .toast').forEach(el => {
+          el.style.background = accentColor;
+        });
+      },
+      mapToCapabilities: (config) => ({
+        recolorables: [
+          {
+            get: () => config.primary_color || defaultConfig.primary_color,
+            set: (value) => {
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ primary_color: value });
+              }
+            }
+          },
+          {
+            get: () => config.secondary_color || defaultConfig.secondary_color,
+            set: (value) => {
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ secondary_color: value });
+              }
+            }
+          },
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => {
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ background_color: value });
+              }
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ text_color: value });
+              }
+            }
+          },
+          {
+            get: () => config.accent_color || defaultConfig.accent_color,
+            set: (value) => {
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ accent_color: value });
+              }
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      }),
+      mapToEditPanelValues: (config) => new Map([
+        ['app_title', config.app_title || defaultConfig.app_title],
+        ['welcome_message', config.welcome_message || defaultConfig.welcome_message]
+      ])
+    };
+    
+    if (window.elementSdk) {
+      window.elementSdk.init(element);
+    }
+    
+    initApp();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99a1d699c775fcef',t:'MTc2MjQwMzI0NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
